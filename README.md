@@ -1,2 +1,8 @@
-# Auderset_etal_2022_nature
-Analysis for publication "Enhanced ocean oxygenation during Cenozoic warm periods"
+# Enhanced ocean oxygenation during Cenozic warm periods
+
+This notebooks here support the paper Enhanced ocean oxygenation during Cenozic
+warm periods.
+
+## How to use
+
+To run these notebook yourself, you will need to install the dependencies.
