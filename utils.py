@@ -1,23 +1,24 @@
 """
-We exclude values above XY for MI. etc
+Utilities for performing analyses and useful values for limiting or filtering
+data.
 """
 from loguru import logger
-from typing import Tuple, List, Callable
+from typing import Tuple, List, Callable, Optional
 import pandas as pd
 
-
+# Methane Index
 MI_FILLNA = -999
 MI_THRESHOLD = 0.4
-
+# Red sea type GDGTs
 GDGTRS_FILLNA = -999
 GDGTRS_THRESHOLD = 30
-
+# Crenarchaeol areas
 CREN_FILLNA = 9999
 CREN_THRESHOLD = 1000
-
+# Branched and Isoprenoid Index
 BIT_FILLNA = -999
 BIT_THRESHOLD = 0.4
-
+# Cyclisation degree of tetramethylated brGDGTs
 RINGSTETRA_FILLNA = 999
 RINGSTETRA_THRESHOLD = 0.7
 
@@ -88,6 +89,12 @@ def apply_filters(
         filtered, poststr = filt(filtered)
         postpend += f"_{poststr}"
     return filtered, postpend
+
+
+def apply_final_filtering(df: pd.DataFrame) -> Tuple[pd.DataFrame, str]:
+    """Apply the final filtering selection"""
+    filters = [filter_mi, filter_gdgtrs, filter_bit_ringstetra]
+    return apply_filters(df, filters)
 
 
 def filter_data(df: pd.DataFrame) -> pd.DataFrame:
