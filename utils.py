@@ -3,8 +3,11 @@ Utilities for performing analyses and useful values for limiting or filtering
 data.
 """
 from loguru import logger
+from pathlib import Path
 from typing import Tuple, List, Callable, Optional
 import pandas as pd
+
+INPUT_DATA_PATH = Path("data", "input")
 
 # Methane Index
 MI_FILLNA = -999
@@ -21,6 +24,13 @@ BIT_THRESHOLD = 0.4
 # Cyclisation degree of tetramethylated brGDGTs
 RINGSTETRA_FILLNA = 999
 RINGSTETRA_THRESHOLD = 0.7
+
+
+def get_source_data():
+    """Get the main source data (to be updated with Pangaea)"""
+    return pd.read_excel(
+        INPUT_DATA_PATH / "Table S2_SST compilation.xlsx", sheet_name=0, skiprows=[1]
+    )
 
 
 def fill_nans(df: pd.DataFrame) -> pd.DataFrame:
