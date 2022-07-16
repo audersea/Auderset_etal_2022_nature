@@ -122,24 +122,3 @@ def apply_final_filtering(df: pd.DataFrame) -> Tuple[pd.DataFrame, str]:
     """Apply the final filtering selection"""
     filters = [filter_mi, filter_gdgtrs, filter_bit_ringstetra]
     return apply_filters(df, filters)
-
-
-def filter_data(df: pd.DataFrame) -> pd.DataFrame:
-    logger.info(f"number of rows = {len(df.index)}")
-
-    filtered = df[
-        (df["MI"] < MI_THRESHOLD)
-        & (df["%GDGTrs"] < GDGTRS_THRESHOLD)
-        & (df["Cren'"] > CREN_THRESHOLD)
-    ].copy()
-    logger.info(f"number of rows filter MI, GDGTRS, Cren = {len(filtered.index)}")
-
-    # filtered = filtered[
-    #     ~(
-    #         (filtered["BIT"] > BIT_THRESHOLD)
-    #         & (filtered["#ringstetra"] < RINGSTETRA_THRESHOLD)
-    #     )
-    # ].copy()
-    # logger.info(f"number of rows filter BIT and ringstetra = {len(filtered.index)}")
-
-    return filtered
