@@ -27,27 +27,37 @@ RINGSTETRA_FILLNA = 999
 RINGSTETRA_THRESHOLD = 0.7
 
 
-def get_source_data():
+def get_SST_source_data():
     """Get the main source data (to be updated with Pangaea)"""
     return pd.read_excel(
         INPUT_DATA_PATH / "Table S2_SST compilation.xlsx", sheet_name=0, skiprows=[1]
     )
 
 
-def get_source_d15N_data():
+def get_SST_gradient_data():
+    """Get the gradient SST high latitudes vs mid and low latitudes"""
+    input_path = GRADIENT_PATH / "SST_LOESS_MI0pt4_RS30_BIT0pt4_RT0pt7_gradients.csv"
+    if not input_path.exists():
+        raise FileNotFoundError(
+            "SST gradient data not found, try running the SST_gradient notebook"
+        )
+    return pd.read_csv(input_path, index_col=0)
+
+
+def get_d15N_source_data():
     """Get the source d15N Atlantic and Pacific data"""
     input_path = INPUT_DATA_PATH / "d15N_A_P.csv"
     return pd.read_csv(input_path)
 
 
-def get_gradient_d15N_data():
+def get_d15N_gradient_data():
     """Get the gradient d15N Atlantic and Pacific data"""
     input_path = GRADIENT_PATH / "d15N_A_P_gradient.csv"
     if not input_path.exists():
         raise FileNotFoundError(
             "d15N gradient data not found, try running the d15N_gradient notebook"
         )
-    return pd.read_csv(input_path)
+    return pd.read_csv(input_path, index_col=0)
 
 
 def fill_nans(df: pd.DataFrame) -> pd.DataFrame:
