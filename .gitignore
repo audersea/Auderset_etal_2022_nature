@@ -143,5 +143,4 @@ cython_debug/
 # ignore some folders
 data/by_latitude/*
 data/by_site/*
-data/gradients/*
 .vscode
