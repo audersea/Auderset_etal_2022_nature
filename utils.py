@@ -8,6 +8,7 @@ from typing import Tuple, List, Callable, Optional
 import pandas as pd
 
 INPUT_DATA_PATH = Path("data", "input")
+GRADIENT_PATH = Path("data", "gradients")
 
 # Methane Index
 MI_FILLNA = -999
@@ -31,6 +32,22 @@ def get_source_data():
     return pd.read_excel(
         INPUT_DATA_PATH / "Table S2_SST compilation.xlsx", sheet_name=0, skiprows=[1]
     )
+
+
+def get_source_d15N_data():
+    """Get the source d15N Atlantic and Pacific data"""
+    input_path = INPUT_DATA_PATH / "d15N_A_P.csv"
+    return pd.read_csv(input_path)
+
+
+def get_gradient_d15N_data():
+    """Get the gradient d15N Atlantic and Pacific data"""
+    input_path = GRADIENT_PATH / "d15N_A_P_gradient.csv"
+    if not input_path.exists():
+        raise FileNotFoundError(
+            "d15N gradient data not found, try running the d15N_gradient notebook"
+        )
+    return pd.read_csv(input_path)
 
 
 def fill_nans(df: pd.DataFrame) -> pd.DataFrame:
